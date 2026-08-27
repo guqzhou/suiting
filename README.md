@@ -1,62 +1,62 @@
 # 随听 (SuiTing Music) - 官方全平台生产包与技术架构说明
 
-> 📌 **发布说明**：本仓库为【随听】客户端官方二进制构建产物与架构说明专区，**仅包含已编译打包的生产安装包与文档，不含任何未编译的业务源码**。
+> 发布说明：本仓库为【随听】客户端官方二进制构建产物与架构说明专区，仅包含已编译打包的生产安装包与文档，不含任何未编译的业务源码。
 
 ---
 
-## 📥 最新稳定版二进制安装包下载 (v1.0.0)
+## 最新稳定版二进制安装包下载 (v1.0.0)
 
 | 平台 | 安装包名称 | 文件大小 | 核心特性 / 运行环境 |
 | :--- | :--- | :--- | :--- |
-| **🍏 iOS 客户端** | [`SuiTing_iOS.ipa`](./SuiTing_iOS.ipa) | **33 MB** | 支持 iOS 16.1+ 灵动岛 / 锁屏实时活动（支持 TrollStore / 自签一键直装） |
-| **🤖 Android 客户端** | [`SuiTing_Android.apk`](./SuiTing_Android.apk) | **26 MB** | 适配 Android 8.0 ~ Android 14+ 及华为鸿蒙 HarmonyOS 4.x/3.x 全机型 |
-| **🍎 macOS 桌面端** | [`SuiTing_macOS.dmg`](./SuiTing_macOS.dmg) | **29 MB** | 原生 Universal 架构，深度适配 Apple Silicon (M1/M2/M3/M4) 与 Intel 芯片 |
+| **iOS 客户端** | [`SuiTing_iOS.ipa`](./SuiTing_iOS.ipa) | **33 MB** | 支持 iOS 16.1+ 灵动岛 / 锁屏实时活动（支持 TrollStore / 自签一键直装） |
+| **Android 客户端** | [`SuiTing_Android.apk`](./SuiTing_Android.apk) | **26 MB** | 适配 Android 8.0 ~ Android 14+ 全机型 |
+| **macOS 桌面端** | [`SuiTing_macOS.dmg`](./SuiTing_macOS.dmg) | **29 MB** | 原生 Universal 架构，深度适配 Apple Silicon (M1/M2/M3/M4) 与 Intel 芯片 |
 
 ---
 
-## 🛠️ 全案技术栈架构说明 (Technical Stack Architecture)
+## 全案技术栈架构说明 (Technical Stack Architecture)
 
-本项目整体采用 **「客户端移动+桌面跨端内核」与「响应式现代官方推广落地页」** 双轮驱动架构体系：
+本项目整体采用「客户端移动与桌面跨端内核」与「响应式现代官方推广落地页」双轮驱动架构体系：
 
-### 一、 📱 客户端核心技术栈 (Music Client Core)
+### 一、 客户端核心技术栈 (Music Client Core)
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                       SuiTing Client                        │
-├──────────────────────────────┬──────────────────────────────┤
-│      Flutter 3.22 / Dart     │     SwiftUI & ActivityKit    │
-│   (跨端 UI / 状态路由 / 解析)  │     (iOS 灵动岛 / 实时活动)    │
-├──────────────────────────────┴──────────────────────────────┤
-│              CoreAudio / WASAPI / AudioTrack                │
-│                   (系统独占级底层高保真解码)                   │
-└─────────────────────────────────────────────────────────────┘
++-------------------------------------------------------------+
+|                       SuiTing Client                        |
++------------------------------+------------------------------+
+|      Flutter 3.22 / Dart     |     SwiftUI & ActivityKit    |
+|   (跨端 UI / 状态路由 / 解析)  |     (iOS 灵动岛 / 实时活动)    |
++------------------------------+------------------------------+
+|              CoreAudio / WASAPI / AudioTrack                |
+|                   (系统独占级底层高保真解码)                   |
++-------------------------------------------------------------+
 ```
 
 1. **跨端核心架构**：
-   * **`Flutter 3.22.x` & `Dart 3.4.x`**：高性能跨平台声明式渲染引擎，负责 iOS、Android、macOS 及 Windows 桌面端的一致性 UI 与业务流转。
+   * **Flutter 3.22.x & Dart 3.4.x**：高性能跨平台声明式渲染引擎，负责 iOS、Android、macOS 及 Windows 桌面端的一致性 UI 与业务流转。
 2. **iOS 原生灵动岛与实时活动扩展**：
-   * **`Swift 5.9+` & `SwiftUI`**：原生编写的 `WidgetKit` 与 `ActivityKit` 拓展组件；
+   * **Swift 5.9+ & SwiftUI**：原生编写的 WidgetKit 与 ActivityKit 拓展组件；
    * **Dynamic Island 自适应**：支持灵动岛紧凑态（Leading 珊瑚音符 Logo + Trailing 专辑封面与实时跳动波形）、展开态多维控制器与锁屏常驻超清播放卡片。
 3. **音频引擎与高保真管线**：
-   * **`just_audio` & `audio_service`**：底层系统级无缝音频调度管线；
-   * 原生调用 macOS `CoreAudio`、Windows `WASAPI` 及 Android `AudioTrack` 底层通道，支持无损音频解析与后台低功耗常驻。
+   * **just_audio & audio_service**：底层系统级无缝音频调度管线；
+   * 原生调用 macOS CoreAudio、Windows WASAPI 及 Android AudioTrack 底层通道，支持无损音频解析与后台低功耗常驻。
 4. **状态流与持久化**：
-   * **`Provider` 响应式状态总线**：统一管理播放列表、播放进度、歌词行实时同步与用户收藏；
-   * **`shared_preferences` / 内存级缓存**：实现毫秒级设置持久化与本地数据存储。
+   * **Provider 响应式状态总线**：统一管理播放列表、播放进度、歌词行实时同步与用户收藏；
+   * **shared_preferences / 内存级缓存**：实现毫秒级设置持久化与本地数据存储。
 
 ---
 
-### 二、 🌌 官方推广落地页技术栈 (Web Promotion)
+### 二、 官方推广落地页技术栈 (Web Promotion)
 
-1. **响应式内核**：**`Vue 3.5+`** (Composition API, `<script setup>`)；
-2. **现代构建工具链**：**`Vite 6.x`** + `unplugin-auto-import` + `unplugin-vue-components`（全自动组件与状态引入）；
-3. **全局状态流**：**`Pinia 2.3+`**；
-4. **UI 与视觉样式**：**`Tailwind CSS 3.4+`** + PostCSS（Bento 玻璃拟物风格、深空珊瑚流光主题）；
+1. **响应式内核**：**Vue 3.5+** (Composition API, `<script setup>`)；
+2. **现代构建工具链**：**Vite 6.x** + unplugin-auto-import + unplugin-vue-components（全自动组件与状态引入）；
+3. **全局状态流**：**Pinia 2.3+**；
+4. **UI 与视觉样式**：**Tailwind CSS 3.4+** + PostCSS（Bento 玻璃拟物风格、深空珊瑚流光主题）；
 5. **3D 背景粒子引擎**：纯原生 HTML5 Canvas 3D 深空穿梭粒子算法，具备鼠标移动缓动视差。
 
 ---
 
-## ⚠️ 法律免责与独立性声明
+## 法律免责与独立性声明
 
 1. 本项目代码及客户端为**纯前端技术研究与个人学习探索成果，不含任何商业用途、盈利行为与商业价值**。
 2. 本软件**不提供、不托管、不存储任何音频、歌词及图片等媒体文件**，所有播放内容均由用户端直接检索公开网络接口。音频版权均归各大原始版权方所有。
