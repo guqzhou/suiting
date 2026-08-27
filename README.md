@@ -13,11 +13,7 @@
 
 ---
 
-## 全案技术栈架构说明 (Technical Stack Architecture)
-
-本项目整体采用「客户端移动与桌面跨端内核」与「响应式现代官方推广落地页」双轮驱动架构体系：
-
-### 一、 客户端核心技术栈 (Music Client Core)
+## 客户端核心技术栈架构 (Music Client Architecture)
 
 ```
 +-------------------------------------------------------------+
@@ -42,16 +38,6 @@
 4. **状态流与持久化**：
    * **Provider 响应式状态总线**：统一管理播放列表、播放进度、歌词行实时同步与用户收藏；
    * **shared_preferences / 内存级缓存**：实现毫秒级设置持久化与本地数据存储。
-
----
-
-### 二、 官方推广落地页技术栈 (Web Promotion)
-
-1. **响应式内核**：**Vue 3.5+** (Composition API, `<script setup>`)；
-2. **现代构建工具链**：**Vite 6.x** + unplugin-auto-import + unplugin-vue-components（全自动组件与状态引入）；
-3. **全局状态流**：**Pinia 2.3+**；
-4. **UI 与视觉样式**：**Tailwind CSS 3.4+** + PostCSS（Bento 玻璃拟物风格、深空珊瑚流光主题）；
-5. **3D 背景粒子引擎**：纯原生 HTML5 Canvas 3D 深空穿梭粒子算法，具备鼠标移动缓动视差。
 
 ---
 
