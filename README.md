@@ -4,13 +4,14 @@
 
 ---
 
-## 最新稳定版二进制安装包下载 (v1.0.0)
+## 最新稳定版生产打包产物下载 (v1.0.0)
 
-| 平台 | 安装包名称 | 文件大小 | 核心特性 / 运行环境 |
+| 平台 / 类型 | 安装包 / 构建包 | 文件大小 | 核心特性 / 运行环境 |
 | :--- | :--- | :--- | :--- |
 | **iOS 客户端** | [`SuiTing_iOS.ipa`](./SuiTing_iOS.ipa) | **33 MB** | 支持 iOS 16.1+ 灵动岛 / 锁屏实时活动（支持 TrollStore / 自签一键直装） |
 | **Android 客户端** | [`SuiTing_Android.apk`](./SuiTing_Android.apk) | **26 MB** | 适配 Android 8.0 ~ Android 14+ 全机型 |
 | **macOS 桌面端** | [`SuiTing_macOS.dmg`](./SuiTing_macOS.dmg) | **29 MB** | 原生 Universal 架构，深度适配 Apple Silicon (M1/M2/M3/M4) 与 Intel 芯片 |
+| **Web 纯编译生产包** | [`SuiTing_Production_Web.zip`](./SuiTing_Production_Web.zip) | **9.7 MB** | 生产环境编译打包后的纯静态代码，解压即可直接部署至 GitHub Pages / Nginx / Vercel 在线播放 |
 
 ---
 
